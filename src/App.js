@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Screen from './components/screen'
+import Register from './components/register'
+import './assets/css/style.css';
+import Login from './components/login'
+import Sevval from './components/sevval'
+
+
+import {Routes, Route, Navigate} from "react-router-dom"
+
 
 function App() {
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
+  const token = window.localStorage.getItem("token");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {/* <Route exact path='/' element={isLoggedIn=="true"?<Screen/>:<Login/>} /> */}
+      <Route path="/" element={<Login/>} />
+      <Route path="/register" element={<Register/>}  />
+      <Route path="/sevval" element={<Sevval/>}  />
+      <Route path="/dashboard" element={token?<Screen/>:<Login/>} />
+      <Route path='*' element={<Navigate to='/' />} />
+    </Routes>
+
   );
 }
 
 export default App;
+
+
